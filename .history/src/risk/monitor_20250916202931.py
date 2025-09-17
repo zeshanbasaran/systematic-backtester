@@ -14,8 +14,6 @@ Uses metrics from `metrics.py` and `risk_metrics.py`:
 """
 
 from dataclasses import dataclass
-from ..engine.metrics import max_drawdown, ann_vol
-from .risk_metrics import var_historical
 # Assumes these functions are imported elsewhere in the project:
 # from metrics import ann_vol, max_drawdown
 # from risk_metrics import var_historical

@@ -32,29 +32,54 @@ from typing import Callable, Dict, List, Tuple
 
 import pandas as pd
 
-# --- Config ---
-from src.config import SYMBOLS, START, END, BAR, INIT_CASH, DB_URL, RISK
+# --- Config & paths ---
+try:
+    from .config import SYMBOLS, START, END, BAR, INIT_CASH, DB_URL, RISK
+except Exception:
+    from src.config import SYMBOLS, START, END, BAR, INIT_CASH, DB_URL, RISK  # type: ignore
 
 # --- Data loader ---
-from src.data.loaders import get_price_data
+try:
+    from .data_loader import get_price_data
+except Exception:
+    from src.data_loader import get_price_data  # type: ignore
 
 # --- Strategies ---
-from src.strategies.sma_crossover import sma_crossover
-from src.strategies.bollinger_meanrev import bollinger_meanrev
+try:
+    from .sma_crossover import sma_crossover
+    from .bollinger_meanrev import bollinger_meanrev
+except Exception:
+    from src.sma_crossover import sma_crossover  # type: ignore
+    from src.bollinger_meanrev import bollinger_meanrev  # type: ignore
 
-# --- Engine ---
-from src.engine.backtester import simulate
-from src.engine.metrics import max_drawdown
+# --- Engine (sim & metrics) ---
+try:
+    from .backtester import simulate
+    from .engine.metrics import max_drawdown  # not strictly needed here, but handy
+except Exception:
+    from src.backtester import simulate  # type: ignore
+    from src.engine.metrics import max_drawdown  # type: ignore
 
 # --- Risk monitor ---
-from src.risk.monitor import RiskThresholds, check_breaches
+try:
+    from .risk.monitor import RiskThresholds, check_breaches
+except Exception:
+    from src.risk.monitor import RiskThresholds, check_breaches  # type: ignore
 
 # --- Reports ---
-from src.reporting.reports import build_performance_report
+try:
+    from .reporting.reports import build_performance_report
+except Exception:
+    from src.reporting.reports import build_performance_report  # type: ignore
 
 # --- DB I/O & Models ---
-from src.db.io import init_db, make_session
-from src.db.models import Run, Trade, DailyPnl, RiskEvent
+try:
+    from .db.io import init_db, make_session
+    from .db.models import Run, Trade, DailyPnl, RiskEvent
+except Exception:
+    from src.db.io import init_db, make_session  # type: ignore
+    from src.db.models import Run, Trade, DailyPnl, RiskEvent  # type: ignore
+
 
 # -------------------------
 # Helpers

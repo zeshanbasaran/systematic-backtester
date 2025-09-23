@@ -191,20 +191,14 @@ with tab3:
 with tab4:
     st.subheader("PnL Analysis")
 
-    # Returns histogram with Streamlit-native style
-    hist = returns.dropna().to_frame("return")
-    hist_counts = (
-        pd.cut(hist["return"], bins=50)
-        .value_counts()
-        .sort_index()
-        .rename_axis("bin")
-        .reset_index(name="count")
-    )
-
-    # Use bin midpoints for x-axis
-    hist_counts["bin_mid"] = hist_counts["bin"].apply(lambda x: x.mid)
-
-    st.bar_chart(hist_counts.set_index("bin_mid")["count"])
+    # Returns histogram (smaller, proportionate)
+    fig, ax = plt.subplots(figsize=(5, 3))  # width=5", height=3"
+    ax.hist(returns.dropna(), bins=50, color="steelblue", edgecolor="black")
+    ax.set_title("Returns Distribution", fontsize=12)
+    ax.set_xlabel("Return")
+    ax.set_ylabel("Frequency")
+    plt.tight_layout()
+    st.pyplot(fig, use_container_width=False)
 
     # Rolling Sharpe
     roll_sharpe = returns.rolling(60).mean() / returns.rolling(60).std()

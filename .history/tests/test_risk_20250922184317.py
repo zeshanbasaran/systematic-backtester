@@ -7,16 +7,9 @@ Run with:
     pytest tests/test_risk.py -v
 """
 
-import sys
-from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
-
-# --- ensure project root is on sys.path ---
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from src.risk.risk_metrics import var_parametric, var_historical
 from src.risk.monitor import RiskThresholds, check_breaches

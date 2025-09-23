@@ -10,12 +10,7 @@ Run with:
 import os
 import pandas as pd
 import pytest
-import sys
 from pathlib import Path
-
-# Add project root to sys.path
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
 
 from src.data.loaders import get_price_data, _cache_path, _standardize_columns
 
